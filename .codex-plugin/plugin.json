@@ -1,7 +1,7 @@
 {
   "name": "expo-mobile-frontend",
-  "version": "0.1.0",
-  "description": "Reusable Codex plugin for Expo and React Native frontend architecture, UI systems, motion, data runtime, release workflow, and optional Figma design-to-code.",
+  "version": "0.2.0",
+  "description": "Reusable Codex toolkit for Expo and React Native frontend architecture, UI systems, motion, data runtime, release workflow, and optional Figma design-to-code.",
   "author": {
     "name": "franvillasil",
     "email": "fran@minitales.app",

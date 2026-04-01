@@ -4,8 +4,11 @@ set -euo pipefail
 OWNER="franvillasil"
 REPO="expo-mobile-frontend"
 REF="main"
-DEST="${HOME}/.codex/plugins/${REPO}"
-MARKETPLACE="${HOME}/.agents/plugins/marketplace.json"
+TARGETS=""
+MODE="copy"
+CODEX_DEST="${HOME}/.codex/plugins/${REPO}"
+CODEX_MARKETPLACE="${HOME}/.agents/plugins/marketplace.json"
+CLAUDE_DEST="${HOME}/.claude/skills"
 KEEP_TMP="false"
 
 usage() {
@@ -14,8 +17,12 @@ Usage: curl -fsSL https://raw.githubusercontent.com/franvillasil/expo-mobile-fro
 
 Optional flags:
   --ref REF            Git ref to install (default: main)
-  --dest PATH          Destination path (default: ~/.codex/plugins/expo-mobile-frontend)
-  --marketplace PATH   Marketplace path (default: ~/.agents/plugins/marketplace.json)
+  --targets LIST       Comma-separated targets: codex, claude
+  --mode MODE          Install mode for downloaded files. Only 'copy' is supported (default: copy)
+  --codex-dest PATH    Codex plugin destination (default: ~/.codex/plugins/expo-mobile-frontend)
+  --codex-marketplace PATH
+                       Codex marketplace path (default: ~/.agents/plugins/marketplace.json)
+  --claude-dest PATH   Claude skills destination (default: ~/.claude/skills)
   --keep-tmp           Keep temporary download directory for debugging
   -h, --help           Show this help text
 EOF
@@ -27,12 +34,24 @@ while [[ $# -gt 0 ]]; do
       REF="$2"
       shift 2
       ;;
-    --dest)
-      DEST="$2"
+    --targets)
+      TARGETS="$2"
       shift 2
       ;;
-    --marketplace)
-      MARKETPLACE="$2"
+    --mode)
+      MODE="$2"
+      shift 2
+      ;;
+    --codex-dest)
+      CODEX_DEST="$2"
+      shift 2
+      ;;
+    --codex-marketplace)
+      CODEX_MARKETPLACE="$2"
+      shift 2
+      ;;
+    --claude-dest)
+      CLAUDE_DEST="$2"
       shift 2
       ;;
     --keep-tmp)
@@ -50,6 +69,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ "${MODE}" != "copy" ]]; then
+  echo "--mode must be 'copy' when installing from GitHub" >&2
+  exit 1
+fi
 
 TMP_DIR="$(mktemp -d)"
 cleanup() {
@@ -71,13 +95,24 @@ if [[ -z "${EXTRACTED_DIR}" ]]; then
   exit 1
 fi
 
-"${EXTRACTED_DIR}/scripts/install.sh" --mode copy --dest "${DEST}" --marketplace "${MARKETPLACE}"
+install_args=(
+  --mode "${MODE}"
+  --codex-dest "${CODEX_DEST}"
+  --codex-marketplace "${CODEX_MARKETPLACE}"
+  --claude-dest "${CLAUDE_DEST}"
+)
+
+if [[ -n "${TARGETS}" ]]; then
+  install_args+=(--targets "${TARGETS}")
+fi
+
+"${EXTRACTED_DIR}/scripts/install-universal.sh" "${install_args[@]}"
 
 cat <<EOF
 Installed from GitHub
   repo: https://github.com/${OWNER}/${REPO}
   ref: ${REF}
-  dest: ${DEST}
+  targets: ${TARGETS:-interactive}
 
-Restart Codex to pick up the plugin.
+Restart Codex or Claude Code to pick up the installation.
 EOF

@@ -1,11 +1,11 @@
 # expo-mobile-frontend
 
-> Reusable Codex plugin for Expo and React Native teams shipping cleaner frontend decisions.
+> Reusable mobile frontend toolkit for Codex and Claude Code teams shipping cleaner Expo and React Native decisions.
 
 ![Expo](https://img.shields.io/badge/Expo-ready-0F172A?style=for-the-badge&logo=expo)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-supported-D97706?style=for-the-badge)
 ![React Native](https://img.shields.io/badge/React%20Native-workflows-2563EB?style=for-the-badge&logo=react)
 ![Tailwind](https://img.shields.io/badge/Tailwind%2FNativeWind-included-06B6D4?style=for-the-badge&logo=tailwindcss)
-![Figma Optional](https://img.shields.io/badge/Figma-optional-F24E1E?style=for-the-badge&logo=figma)
 
 ![AI mobile designer illustration](./assets/hero-mobile-agent.svg)
 
@@ -27,17 +27,30 @@
 curl -fsSL https://raw.githubusercontent.com/franvillasil/expo-mobile-frontend/main/scripts/install-from-github.sh | bash
 ```
 
-Restart Codex after installation.
+The installer asks where you want it:
+- `Codex`
+- `Claude Code`
+- both at the same time
+
+Direct install for both:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/franvillasil/expo-mobile-frontend/main/scripts/install-from-github.sh | bash -s -- --targets codex,claude
+```
 
 ## Local dev install
 
 ```bash
 git clone https://github.com/franvillasil/expo-mobile-frontend.git
 cd expo-mobile-frontend
-./scripts/install.sh
+./scripts/install-universal.sh
 ```
 
-Default install path follows the OpenAI plugin docs: `~/.codex/plugins/expo-mobile-frontend`.
+Default install paths:
+- Codex: `~/.codex/plugins/expo-mobile-frontend`
+- Claude Code: `~/.claude/skills/`
+
+Claude Code plugin development is also supported through [`.claude-plugin/plugin.json`](./.claude-plugin/plugin.json) and `claude --plugin-dir /path/to/expo-mobile-frontend`.
 
 ## Recommended stack
 
@@ -58,9 +71,10 @@ Default install path follows the OpenAI plugin docs: `~/.codex/plugins/expo-mobi
 - Bundled MCP configuration
 - Business-specific project overlays
 - Full Figma design system sync
+- OpenCode adapter
 
 ## Roadmap
 
 - Phase 2: Figma design system sync
 - Phase 2: richer visual assets and metadata
-- Phase 2: optional skill UI metadata via `agents/openai.yaml`
+- Phase 2: OpenCode commands and agent adapter
