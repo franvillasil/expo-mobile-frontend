@@ -5,7 +5,7 @@ PLUGIN_NAME="expo-mobile-frontend"
 MODE="symlink"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
-DEST="${HOME}/plugins/${PLUGIN_NAME}"
+DEST="${HOME}/.codex/plugins/${PLUGIN_NAME}"
 MARKETPLACE="${HOME}/.agents/plugins/marketplace.json"
 
 usage() {
@@ -15,7 +15,7 @@ Usage: ./scripts/install.sh [--dest PATH] [--marketplace PATH] [--mode symlink|c
 Installs the plugin into a personal Codex marketplace.
 
 Options:
-  --dest PATH          Destination path for the plugin (default: ~/plugins/expo-mobile-frontend)
+  --dest PATH          Destination path for the plugin (default: ~/.codex/plugins/expo-mobile-frontend)
   --marketplace PATH   Marketplace JSON path (default: ~/.agents/plugins/marketplace.json)
   --mode MODE          Install mode: symlink or copy (default: symlink)
   -h, --help           Show this help text
@@ -127,4 +127,3 @@ Installed ${PLUGIN_NAME}
 
 Restart Codex to pick up the plugin.
 EOF
-

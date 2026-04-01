@@ -7,7 +7,7 @@
 ![Tailwind](https://img.shields.io/badge/Tailwind%2FNativeWind-included-06B6D4?style=for-the-badge&logo=tailwindcss)
 ![Figma Optional](https://img.shields.io/badge/Figma-optional-F24E1E?style=for-the-badge&logo=figma)
 
-![Plugin preview](./assets/screenshot-1.png)
+![AI mobile designer illustration](./assets/hero-mobile-agent.svg)
 
 ## What's inside
 
@@ -21,20 +21,23 @@
 | `expo-mobile-release-workflow` | Expo Dev Client, EAS, upgrades, release discipline | You are preparing builds, previews, or SDK upgrades |
 | `expo-mobile-figma-design-to-code` | Figma URL/node to production-ready Expo code | You are implementing UI from Figma with optional MCP |
 
-## Install in 2 steps
+## Install in 1 step
 
 ```bash
-git clone git@github.com:franvillasil/expo-mobile-frontend.git
-cd expo-mobile-frontend
-```
-
-```bash
-./scripts/install.sh
+curl -fsSL https://raw.githubusercontent.com/franvillasil/expo-mobile-frontend/main/scripts/install-from-github.sh | bash
 ```
 
 Restart Codex after installation.
 
-Manual option: copy or symlink the repo to `~/plugins/expo-mobile-frontend` and add it to `~/.agents/plugins/marketplace.json`.
+## Local dev install
+
+```bash
+git clone https://github.com/franvillasil/expo-mobile-frontend.git
+cd expo-mobile-frontend
+./scripts/install.sh
+```
+
+Default install path follows the OpenAI plugin docs: `~/.codex/plugins/expo-mobile-frontend`.
 
 ## Recommended stack
 
